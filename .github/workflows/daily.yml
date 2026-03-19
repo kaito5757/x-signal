@@ -1,0 +1,34 @@
+name: Daily X Signal Collection
+
+on:
+  schedule:
+    - cron: '0 21 * * *' # 毎日6:00 JST (21:00 UTC)
+  workflow_dispatch: # 手動実行用
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect tweets
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: npx tsx scripts/collect.ts
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/
+          git diff --staged --quiet || git commit -m "📡 $(date -u +%Y-%m-%d) のトレンドツイートを追加"
+          git push
