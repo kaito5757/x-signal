@@ -14,11 +14,14 @@ const TOPICS: Record<string, string> = {
 };
 
 function getJSTDates() {
-  const now = new TZDate(new Date(), JST);
-  const yesterday = subDays(now, 1);
+  const override = process.env.COLLECT_DATE;
+  const now = override ? new TZDate(new Date(`${override}T06:00:00+09:00`), JST) : new TZDate(new Date(), JST);
+  const searchFrom = subDays(now, 1);
+  const searchTo = now;
   return {
-    yesterday: format(yesterday, "yyyy-MM-dd"),
-    today: format(now, "yyyy-MM-dd"),
+    collectDate: format(now, "yyyy-MM-dd"),
+    searchFrom: format(searchFrom, "yyyy-MM-dd"),
+    searchTo: format(searchTo, "yyyy-MM-dd"),
   };
 }
 
@@ -26,19 +29,22 @@ async function collectTopic(
   topicKey: string,
   topicQuery: string,
 ): Promise<void> {
-  const { yesterday, today } = getJSTDates();
+  const { collectDate, searchFrom, searchTo } = getJSTDates();
 
-  console.log(`Collecting: ${topicKey} (${yesterday})`);
+  console.log(`Collecting: ${topicKey} (${collectDate})`);
 
   const { text } = await generateText({
     model: xai.responses("grok-4.20-beta-latest-non-reasoning"),
-    prompt: `Search X/Twitter for posts about "${topicQuery}" posted on ${yesterday} (JST).
+    prompt: `Search X/Twitter for recent posts about "${topicQuery}" (search range: ${searchFrom} to ${searchTo}).
 
 ## ルール
-- いいね数が最低500以上の投稿を優先（該当が少ない場合はいいね数100以上まで緩和）
-- いいね数・エンゲージメントが高い順に最大5件を選出（5件未満でもOK。条件を満たす投稿があるだけ掲載すること。0件の場合のみ「該当なし」と記載）
-- すべて日本語で出力すること（投稿内容の引用も含め、英語や他の言語は必ず日本語に翻訳すること）
+- いいね数100以上の投稿のみ対象。いいね数100未満の投稿は絶対に含めるな
+- いいね数・エンゲージメントが高い順に最大5件を選出
+- 条件を満たす投稿が5件未満なら、その数だけ掲載すればよい。無理に5件にするな
+- 条件を満たす投稿が0件なら「該当なし」とだけ書け
+- すべて日本語で出力すること。投稿内容の引用も必ず日本語に翻訳すること（英語の原文をそのまま載せるな）
 - 投稿内容をそのまま載せるのではなく、分かりやすく解説すること
+- 出力フォーマット以外の補足・言い訳・注釈は一切書くな
 
 ## 除外すべき投稿
 - 勉強会・イベントの参加報告（「楽しかった！」だけで具体的な情報がないもの）
@@ -60,8 +66,8 @@ async function collectTopic(
 以下のmarkdown形式で出力してください（\`\`\`markdown や \`\`\` は含めないこと）:
 
 ---
-title: "${yesterday}"
-description: ${yesterday} のトレンドツイートまとめ
+title: "${collectDate}"
+description: ${collectDate} 収集のトレンドポスト
 ---
 
 ## TOP 5 ツイート
@@ -71,6 +77,7 @@ description: ${yesterday} のトレンドツイートまとめ
 | 項目 | 詳細 |
 |------|------|
 | 投稿者 | Display Name (@handle) |
+| 投稿日時 | YYYY年M月D日 HH:MM（日本時間） |
 | エンゲージメント | ❤️ X / 🔁 X / 💬 X |
 | リンク | [元ポスト](URL) |
 
@@ -92,8 +99,8 @@ description: ${yesterday} のトレンドツイートまとめ
 `,
     tools: {
       x_search: xai.tools.xSearch({
-        fromDate: yesterday,
-        toDate: today,
+        fromDate: searchFrom,
+        toDate: searchTo,
       }),
     },
   });
@@ -108,8 +115,8 @@ description: ${yesterday} のトレンドツイートまとめ
 
   if (!markdown.startsWith("---")) {
     markdown = `---
-title: "${yesterday}"
-description: ${yesterday} のトレンドツイートまとめ
+title: "${collectDate}"
+description: ${collectDate} 収集のトレンドポスト
 ---
 
 ${markdown}`;
@@ -120,7 +127,7 @@ ${markdown}`;
     mkdirSync(dir, { recursive: true });
   }
 
-  const filePath = join(dir, `${yesterday}.mdx`);
+  const filePath = join(dir, `${collectDate}.mdx`);
   writeFileSync(filePath, markdown, "utf-8");
   console.log(`Saved: ${filePath}`);
 }

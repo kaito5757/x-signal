@@ -1,3 +1,60 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+/* --- X Signal カスタムスタイル（レイヤー外で最高優先度） --- */
+
+.prose h3.flex {
+  background: var(--fd-card) !important;
+  border: 1px solid var(--fd-border) !important;
+  border-radius: 0.75rem !important;
+  padding: 0.75rem 1rem !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
+  font-size: 1.1rem !important;
+}
+
+.prose table thead th {
+  background: var(--fd-muted) !important;
+  font-weight: 600 !important;
+}
+
+/* 投稿内容（引用）→ 控えめに */
+.prose > blockquote {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-left: 3px solid var(--fd-border) !important;
+  border-inline-start-width: 3px !important;
+  border-inline-start-color: var(--fd-border) !important;
+  border-radius: 0 0.5rem 0.5rem 0 !important;
+  padding: 0.75rem 1rem !important;
+  padding-inline-start: 1rem !important;
+  margin: 0.75rem 0 !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 0.875rem !important;
+}
+
+.prose > blockquote p {
+  color: var(--fd-muted-foreground) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+}
+
+/* 解説 → 主役、読みやすく */
+.prose > blockquote + p + p {
+  font-size: 1rem !important;
+  line-height: 1.85 !important;
+  color: var(--fd-foreground) !important;
+}
+
+.prose > hr {
+  border: none !important;
+  border-top: 1px solid var(--fd-border) !important;
+  margin: 2.5rem 0 !important;
+}
+
+.prose h2.flex {
+  border-bottom: 2px solid var(--fd-primary) !important;
+  padding-bottom: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
