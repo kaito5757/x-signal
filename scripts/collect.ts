@@ -103,7 +103,8 @@ description: ${yesterday} のトレンドツイートまとめ
     return;
   }
 
-  let markdown = text;
+  // MDXでは {} がJSX式として解釈されるのでエスケープ
+  let markdown = text.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
 
   if (!markdown.startsWith("---")) {
     markdown = `---
