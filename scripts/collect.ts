@@ -33,9 +33,17 @@ async function collectTopic(
 
   console.log(`Collecting: ${topicKey} (${collectDate})`);
 
-  const { text } = await generateText({
-    model: xai.responses("grok-4.20-beta-latest-non-reasoning"),
-    prompt: `Search X/Twitter for recent posts about "${topicQuery}" (search range: ${searchFrom} to ${searchTo}).
+  const MAX_RETRIES = 2;
+  let text = "";
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    if (attempt > 0) {
+      console.log(`Retry ${attempt}/${MAX_RETRIES} for ${topicKey} (got 該当なし)`);
+    }
+
+    const result = await generateText({
+      model: xai.responses("grok-4.20-beta-latest-non-reasoning"),
+      prompt: `Search X/Twitter for recent posts about "${topicQuery}" (search range: ${searchFrom} to ${searchTo}).
 
 ## ルール
 - いいね数100以上の投稿のみ対象。いいね数100未満の投稿は絶対に含めるな
@@ -97,13 +105,17 @@ description: ${collectDate} 収集のトレンドポスト
 （5つ繰り返す）
 
 `,
-    tools: {
-      x_search: xai.tools.xSearch({
-        fromDate: searchFrom,
-        toDate: searchTo,
-      }),
-    },
-  });
+      tools: {
+        x_search: xai.tools.xSearch({
+          fromDate: searchFrom,
+          toDate: searchTo,
+        }),
+      },
+    });
+
+    text = result.text;
+    if (!text.includes("該当なし")) break;
+  }
 
   if (!text.trim()) {
     console.error(`No content returned for ${topicKey}`);
