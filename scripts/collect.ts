@@ -11,6 +11,9 @@ const JST = "Asia/Tokyo";
 const TOPICS: Record<string, string> = {
   "claude-code": "Claude Code (Anthropic CLI tool)",
   cursor: "Cursor (AI code editor)",
+  supabase: "Supabase (open source Firebase alternative)",
+  nextjs: "Next.js (React framework by Vercel)",
+  typescript: "TypeScript (typed JavaScript)",
 };
 
 function getJSTDates() {
@@ -145,9 +148,9 @@ ${markdown}`;
 }
 
 async function main() {
-  for (const [key, query] of Object.entries(TOPICS)) {
-    await collectTopic(key, query);
-  }
+  await Promise.all(
+    Object.entries(TOPICS).map(([key, query]) => collectTopic(key, query)),
+  );
   console.log("Done!");
 }
 
