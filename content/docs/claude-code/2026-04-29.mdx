@@ -1,0 +1,146 @@
+---
+title: "2026-04-29"
+description: 2026-04-29 収集のトレンドポスト
+---
+
+## TOP 5 ツイート
+
+### 1. Claude Codeの新機能「スマホプッシュ通知」発表
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | Claude Code研究所\|スパルタClaude Code塾 (@claudecode_lab) |
+| 投稿日時 | 2026年4月29日 08:05（日本時間） |
+| エンゲージメント | ❤️ 597 / 🔁 60 / 💬 8 |
+| リンク | [元ポスト](https://x.com/claudecode_lab/status/2049263764210622702) |
+
+**投稿内容:**
+
+> Claude Code 新機能発表🚀
+> 
+> 長時間のタスクが完了したり、Claudeがあなたの入力が必要になったときにスマホにプッシュ通知が届くようになりました🎉
+> 
+> ターミナルから離れてもOK。作業が終わったらすぐに教えてくれる神仕様🔥
+> 
+> 利用方法  
+> 1. Claudeモバイルアプリをインストール  
+> 2. /remote-control でアプリをペアリング  
+> 3. /config で「Push when Claude decides」を有効化  
+> 
+> するだけ。
+> 
+> 詳細は公式ドキュメントで→ [リンク]
+
+**解説:**
+
+AnthropicがClaude Code CLIに新機能を追加したことを公式発表に基づいて解説した投稿です。長時間かかるコード生成や分析タスクを実行中にPCの前で待機する必要がなくなり、スマホに完了通知や入力待ちアラートが届くようになりました。これにより開発者のワークフローが大幅に改善され、非同期作業が可能になります。設定はモバイルアプリのインストールとターミナル内の簡単なコマンドだけで完了。Remote Control機能が必要で、Pro以上のプランが対象です。ターミナル監視のストレスから解放される実践的なアップデートとして高く評価されています。
+
+---
+
+### 2. Claude Code 2.1.122リリースと詳細変更点
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | Claude Code Changelog (@ClaudeCodeLog) |
+| 投稿日時 | 2026年4月29日 07:21（日本時間） |
+| エンゲージメント | ❤️ 243 / 🔁 17 / 💬 15 |
+| リンク | [元ポスト](https://x.com/ClaudeCodeLog/status/2049252718892458237) |
+
+**投稿内容:**
+
+> Claude Code 2.1.122 has been released.
+> 
+> 18 CLI changes, 2 system prompt changes
+> 
+> Highlights:
+> • Responses prepend 'looking is not acting' and require explicit consent before risky actions, preventing harm
+> • Added ANTHROPIC_BEDROCK_SERVICE_TIER to select Bedrock tier (default/flex/priority), affects tier, speed, cost
+> • Pasting a PR URL into /resume maps to its creating session (GitHub/GHE/GitLab/Bitbucket), easing lookup
+> 
+> Complete details in thread ↓
+
+（スレッド続き：詳細な新機能・修正項目・システムプロンプト変更の全リスト）
+
+**解説:**
+
+Claude Code CLIの最新バージョン2.1.122のリリース情報を詳細にまとめた投稿です。主な変更点は3つあります。1つ目は安全性の強化で、調査（looking）と実際の変更（acting）を明確に区別するフレーズを応答の先頭に追加し、危険な操作前にユーザーの明示的な同意を必須にしました。これにより誤操作による被害を防ぎます。2つ目はAmazon Bedrock利用者向けにサービス階層（default/flex/priority）を環境変数で選択可能にし、速度やコストをコントロールしやすくしました。3つ目はGitHubなどのPR URLを/ resumeコマンドに貼り付けるだけで関連セッションを自動検索する利便性向上です。その他、メモリ削減や認証安定化など18件の修正があり、長期利用時の安定性が大幅に向上しています。開発者にとって実務に直結する技術的アップデートです。
+
+---
+
+### 3. Claude Codeの安定性・パフォーマンス向上に関する公式アップデートまとめ
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | ClaudeDevs (@ClaudeDevs) |
+| 投稿日時 | 2026年4月29日 05:44（日本時間） |
+| エンゲージメント | ❤️ 3150 / 🔁 121 / 💬 212 |
+| リンク | [元ポスト](https://x.com/ClaudeDevs/status/2049228273813750030) |
+
+**投稿内容:**
+
+> In the last four Claude Code CLI releases, we’ve shipped 50+ stability and performance fixes.
+> 
+> Faster resume, stable auth, lower memory, fewer hangs: 🧵
+
+（スレッド続き：大型セッションの高速化、認証安定化、メモリ削減、ハング防止、貼り付け・スクロール改善など具体的な修正内容）
+
+**解説:**
+
+Anthropic公式アカウントが、過去4回のClaude Code CLIリリースで50件以上の安定性・パフォーマンス修正を行ったことをまとめた投稿です。具体的には、40MB超の大型セッションのresume（再開）が最大67%高速化され、/branchコマンドのサイズ制限が撤廃されました。また、macOSのキーチェーン認証強化やトークン自動更新により「突然ログインが必要になる」問題が解消。Linuxでのメモリリーク修正やMCPサーバーの並列接続で起動が速くなり、WebFetch時のハングやプロキシエラーなども解消されています。貼り付け時の改行保持やスクロール挙動の改善も含まれ、日常的な開発体験が大幅に向上したことを伝えています。業界動向として、Anthropicがユーザーからのフィードバックを迅速に反映してツールの信頼性を高めている点を強調した内容です。
+
+---
+
+### 4. Claude Codeスマホ通知機能の日本語解説
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | チャエン | デジライズ CEO (@masahirochaen) |
+| 投稿日時 | 2026年4月29日 07:05（日本時間） |
+| エンゲージメント | ❤️ 473 / 🔁 31 / 💬 14 |
+| リンク | [元ポスト](https://x.com/masahirochaen/status/2049248547670044800) |
+
+**投稿内容:**
+
+> 【🔥朗報】Claude Codeが公式にスマホ通知機能を搭載
+> 
+> これは非常に助かる。PC離れても通知が来るのは嬉しい
+> 
+> ・長時間タスク完了で自動プッシュ
+> ・承認待ち発生時もアラート
+> ・v2.1.110以降＋Remote Control必須
+> ・/configで「Push when Claude decides」をON
+> 
+> 実装方法👇
+
+（続き：詳細な設定手順、要件、注意点、公式リンク）
+
+**解説:**
+
+Claude Codeの新機能「スマホプッシュ通知」を日本人向けに分かりやすく解説した投稿です。長時間実行するタスク（例：大規模コード生成やテスト実行）の完了時や、Claudeがユーザーの判断を待っている時にスマホへ即時通知が届くようになり、PCから離れて他の作業ができるようになります。設定はClaudeモバイルアプリのインストール、/remote-controlによるペアリング、/configコマンドでの有効化だけと簡単。v2.1.110以降が必要で、Remote Control機能が有効なプラン限定です。通知のタイミングはClaudeが自動判断しますが、プロンプトで明示的に指定することも可能。このアップデートにより開発者の生産性がさらに向上すると評価されています。
+
+---
+
+### 5. Claude Codeと他AIツールの比較・業界動向分析
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | Leon Lin (@LexnLin) |
+| 投稿日時 | 2026年4月29日 08:07（日本時間） |
+| エンゲージメント | ❤️ 145 / 🔁 3 / 💬 31 |
+| リンク | [元ポスト](https://x.com/LexnLin/status/2049264277828071453) |
+
+**投稿内容:**
+
+> Codex > Claude Code:
+> - limits
+> - coding model
+> - nice team
+> - computer use
+> - more stable app, still has some flaws and performance issues tho
+> 
+> Claude Code > Codex:
+> - UI gen
+
+**解説:**
+
+Codex（OpenAIの新ツール）とClaude Code（Anthropic）を実際に使い比べた開発者の率直な分析投稿です。Codexが優位な点として、利用制限の緩さ、コーディングモデルの性能、チームの対応の良さ、computer use機能の充実、アプリ全体の安定性を挙げています。一方でClaude Codeが優れている点としてUI生成能力を指摘。AIツールの移行を検討している人にとって参考になる具体的な比較で、両ツールの強みを明確に示しています。AI開発ツールの業界動向として、競合他社の登場によりClaude Codeの位置づけが変わりつつあることを示唆する内容です。単なる好みではなく、実務での使用感に基づいた実践的なTipsとして価値が高いです。
