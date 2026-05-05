@@ -1,0 +1,84 @@
+---
+title: "2026-05-06"
+description: 2026-05-06 収集のトレンドポスト
+---
+
+## TOP 5 ツイート
+
+### 1. VercelがオープンソースのAIセキュリティ診断ツール「deepsec」を公開
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | ぬこぬこ / NUKO 🇯🇵 (@nukonuko) |
+| 投稿日時 | 2026年5月5日 09:21（日本時間） |
+| エンゲージメント | ❤️ 186 / 🔁 29 / 💬 1 |
+| リンク | [元ポスト](https://x.com/nukonuko/status/2051457249223278620) |
+
+**投稿内容:**
+
+> deepsec
+> 
+> Vercel がオープンソースで公開した、コーディングエージェントを用いて脆弱性を検出するセキュリティ診断ツール。Apache 2.0。Claude や Codex のサブスク枠を使って Scan→Investigate→Revalidate→Enrich→Export の順番で検出。
+> 
+> https://vercel.com/blog/introducing-deepsec-find-and-fix-vulnerabilities-in-your-code-base
+> 
+> GitHub リポジトリ
+> https://github.com/vercel-labs/deepsec/
+
+**解説:**
+
+Vercelが新しくリリースしたAIを活用したコードセキュリティツール「deepsec」についての情報共有です。このツールは大規模言語モデル（ClaudeやCodexなど）を使って、コードベースの脆弱性を自動的に検出・調査・検証するプロセス（Scan→Investigate→Revalidate→Enrich→Export）を自動化します。Apache 2.0ライセンスでオープンソース化されており、Next.jsやVercel関連のプロジェクトでセキュリティチェックを効率化できる実用的なツールとして注目されています。投稿者はGitHubリンクも併せて共有し、開発者コミュニティに素早く広めています。
+
+---
+
+### 2. Vercelのdeepsecを実際にテストした結果とSentryのWardenとの比較
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | David Cramer (@zeeg) |
+| 投稿日時 | 2026年5月5日 09:02（日本時間） |
+| エンゲージメント | ❤️ 149 / 🔁 3 / 💬 5 |
+| リンク | [元ポスト](https://x.com/zeeg/status/2051452484460442083) |
+
+**投稿内容:**
+
+> Took Vercel's deepsec, extracted the prompt and ran it with Warden. It did better than I thought it would (which is a credit to how powerful models are natively), but surprisingly it actually grabbed a couple of findings our synthesized skill didn't.
+> 
+> Net-net it missed some domain specific conerns, but still performed much better than I expected.
+> 
+> I didnt try using the native deepsec harness (yet), but if you're curious you can plug in vercel-deepsec from getsentry/warden-skills and try it yourself.
+> 
+> (this is the beauty of Warden - it does wrap your skills, but it can take any kind of artifact here and adapt to it, so testing this was easy)
+> 
+> https://github.com/getsentry/warden-skills/tree/main/skills/vercel-deepsec
+
+**解説:**
+
+Sentryの創業者であるDavid Cramer氏が、Vercelが公開したばかりのdeepsecを自身のツール「Warden」でテストした結果を報告しています。deepsecのプロンプトを抽出して実行したところ、予想以上に良好なパフォーマンスを発揮し、合成されたセキュリティスキルでは見逃していた脆弱性もいくつか検出できたと評価。一方で、特定のドメイン固有の問題は見逃す場合もあると指摘しています。この投稿はAIを活用したセキュリティツールの実践的な評価として価値が高く、Next.jsプロジェクトにおけるセキュリティ強化の参考になります。
+
+---
+
+### 3. Vercel BlobがS3互換でない理由についての議論
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | Christoffer Bjelke (@chribjel) |
+| 投稿日時 | 2026年5月5日 17:27（日本時間） |
+| エンゲージメント | ❤️ 136 / 🔁 0 / 💬 15 |
+| リンク | [元ポスト](https://x.com/chribjel/status/2051579506511495611) |
+
+**投稿内容:**
+
+> why is Vercel Blob not S3 compatible???
+> 
+> （スレッドの続きとしてVercel CTOのMalte Ubl氏が回答）
+> 
+> We felt that there is space to innovate on the API for web-facing use cases (e.g. for reliable, concurrent upload). We don't take such divergences lightly.
+> 
+> I agree that there should be an S3 compatible API. Thing is: we're on AWS. You can just use S3 directly
+> 
+> （さらに複数の開発者からベンダーロックイン懸念や代替案（Cloudflare R2など）の意見が寄せられている）
+
+**解説:**
+
+Vercelのストレージサービス「Vercel Blob」がAmazon S3と互換性がないことに対する疑問を投げかけた投稿で、多くの開発者から共感と議論を呼んでいます。VercelのCTOであるMalte Ubl氏が直接返信し、ウェブ向けのユースケース（同時アップロードの信頼性など）でAPIを革新したい意図を説明するとともに、S3互換APIの必要性は認めつつ、AWS上で直接S3を使う選択肢もあると回答しました。このやり取りはNext.jsアプリケーションでファイルストレージを選択する際のベンダーロックイン問題やアーキテクチャ判断の重要性を浮き彫りにしており、実践的な業界動向として参考になります。
