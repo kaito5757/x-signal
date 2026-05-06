@@ -28,6 +28,31 @@ function getJSTDates() {
   };
 }
 
+// MDXではJSX式 ({...}) とJSX/HTMLタグ (<word>) が文中に混じるとパースエラーになる。
+// コードブロック/インラインコードの外側に出現する `{`, `}`, `<英字` をエスケープする。
+function escapeMdx(text: string): string {
+  const fenced: string[] = [];
+  let result = text.replace(/```[\s\S]*?```/g, (m) => {
+    fenced.push(m);
+    return `@@FENCED_${fenced.length - 1}@@`;
+  });
+
+  const inline: string[] = [];
+  result = result.replace(/`[^`\n]+`/g, (m) => {
+    inline.push(m);
+    return `@@INLINE_${inline.length - 1}@@`;
+  });
+
+  result = result
+    .replace(/\{/g, "\\{")
+    .replace(/\}/g, "\\}")
+    .replace(/<([a-zA-Z/])/g, "\\<$1");
+
+  result = result.replace(/@@INLINE_(\d+)@@/g, (_, i) => inline[Number(i)]);
+  result = result.replace(/@@FENCED_(\d+)@@/g, (_, i) => fenced[Number(i)]);
+  return result;
+}
+
 async function collectTopic(
   topicKey: string,
   topicQuery: string,
@@ -125,8 +150,7 @@ description: ${collectDate} 収集のトレンドポスト
     return;
   }
 
-  // MDXでは {} がJSX式として解釈されるのでエスケープ
-  let markdown = text.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
+  let markdown = escapeMdx(text);
 
   if (!markdown.startsWith("---")) {
     markdown = `---
