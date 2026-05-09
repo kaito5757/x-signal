@@ -11,6 +11,7 @@ const JST = "Asia/Tokyo";
 const TOPICS: Record<string, string> = {
   "claude-code": "Claude Code (Anthropic CLI tool)",
   cursor: "Cursor (AI code editor)",
+  codex: "Codex (OpenAI CLI coding tool)",
   supabase: "Supabase (open source Firebase alternative)",
   nextjs: "Next.js (React framework by Vercel)",
   typescript: "TypeScript (typed JavaScript)",
@@ -172,9 +173,11 @@ ${markdown}`;
 }
 
 async function main() {
-  await Promise.all(
-    Object.entries(TOPICS).map(([key, query]) => collectTopic(key, query)),
+  const topicFilter = process.env.COLLECT_TOPIC;
+  const entries = Object.entries(TOPICS).filter(
+    ([key]) => !topicFilter || key === topicFilter,
   );
+  await Promise.all(entries.map(([key, query]) => collectTopic(key, query)));
   console.log("Done!");
 }
 
