@@ -1,0 +1,55 @@
+---
+title: "2026-07-23"
+description: 2026-07-23 収集のトレンドポスト
+---
+
+## TOP 5 ツイート
+
+### 1. SupabaseとFirebaseの選択基準を徹底比較
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | Rahim (@Rahimdev4) |
+| 投稿日時 | 2026年7月22日 20:28（日本時間） |
+| エンゲージメント | ❤️ 2 / 🔁 0 / 💬 1 |
+| リンク | [元ポスト](https://x.com/Rahimdev4/status/2079891294458159131) |
+
+**投稿内容:**
+
+> FirebaseかSupabaseか？ 人気だけで選ぶな。製品に合わせて選べ。
+> 
+> 大事な更新：FirebaseはもはやNoSQLだけではない。Firestoreは文書型DBのままですが、Firebaseは今やSQL Connectを提供し、Cloud SQL経由の管理PostgreSQLをGraphQLとFlutter SDKでサポートしています。
+> 
+> Firebaseを選ぶべき場合：
+> → 高速なモバイル統合が必要
+> → データが文書とコレクションに適合
+> → 強力なオフラインサポートが必要
+> → Auth、プッシュ通知、クラッシュ解析、アナリティクス、リモート設定をまとめて使いたい
+> → アプリがすでにGoogleエコシステムに依存している
+> 
+> Supabaseを選ぶべき場合：
+> → データに明確な関係性がある
+> → SQL、結合、レポート、複雑なフィルタが必要
+> → 完全なPostgreSQLデータベースが欲しい
+> → Row Level Securityと直接的なDB制御が欲しい
+> → マーケットプレイス、予約システム、在庫管理、CRM、業務アプリを構築している
+> 
+> すべてのSupabaseプロジェクトには完全なPostgreSQL DBが含まれており、RealtimeサービスはBroadcast、Presence、DB変更をサポートします。
+> 
+> 予算を重視したリレーショナルMVPなら、通常Supabaseから始めます。無料プランからスタートでき、Proプランはアプリが本番リソースを必要とする場合月25ドルからです。
+> 
+> 小規模な文書型MVPならFirebase Sparkも非常に手頃で、多くのサービスに無料使用制限があります。
+> 
+> シンプルな判断基準：
+> → Firebase：モバイルの速度、オフラインサポート、Firebaseエコシステム向け
+> → Supabase：PostgreSQL、関係性、SQL、明確なDB制御向け
+> → Firebase SQL Connect：PostgreSQLを使いつつFirebase内に留まりたい場合
+> 
+> 万能の勝者はいません。製品の段階、データモデル、予算に合わせて選びましょう。
+> この投稿を保存してバックエンドを選ぶ前に見ておいてください。
+> 
+> #rahimdev #sparkdevx #firebase #supabase #flutter
+
+**解説:**
+
+この投稿は、Supabase（オープンソースのFirebase代替）とFirebaseのどちらを選ぶべきかを、具体的なユースケースに基づいて比較・分析した内容です。Firebaseが最近SQL ConnectというPostgreSQL統合を追加した点を強調し、データモデル（文書型 vs リレーショナル）、必要な機能（オフライン対応、セキュリティ、分析ツール）、予算、技術スタック（Flutterなど）に応じた選択基準を詳しく解説しています。単なる好みではなく、実践的な判断材料を提供しており、業界動向としてのFirebaseの進化とSupabaseの強み（フルPostgreSQL、Row Level Security、Realtime機能）をバランスよくまとめています。開発者がMVPを構築する際に役立つ具体的なTipsとして価値が高く、優先すべき「業界動向・分析」「実践的なユースケース」に該当します。
