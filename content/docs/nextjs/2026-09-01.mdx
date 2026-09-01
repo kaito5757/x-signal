@@ -1,0 +1,47 @@
+---
+title: "2026-09-01"
+description: 2026-09-01 収集のトレンドポスト
+---
+
+## TOP 5 ツイート
+
+### 1. Next.js 16.3のInstant Navigationsで爆速ナビゲーションを実現したデモ再構築事例
+
+| 項目 | 詳細 |
+|------|------|
+| 投稿者 | Aurora Scharff (@aurorascharff) |
+| 投稿日時 | 2026年8月31日 23:41（日本時間） |
+| エンゲージメント | ❤️ 221 / 🔁 16 / 💬 7 |
+| リンク | [元ポスト](https://x.com/aurorascharff/status/2094435532910563659) |
+
+**投稿内容:**
+
+> 古いVercelの本検索デモをNext.js 16.3のInstant Navigationsを使って再構築しました：https://www.next-books.dev/
+> 
+> Instant Navigationsにより、サーバーレンダリングされたルートでもクリックした瞬間に即座に応答します。接続が遅い環境でも動作します。
+> 
+> 設定例：
+> ```js
+> const nextConfig = {
+>   cacheComponents: true,
+>   partialPrefetching: true
+> };
+> ```
+> 
+> Cache Componentsは静的・キャッシュ済み・フォールバックUIを事前レンダリングします。Partial Prefetchingは再利用可能なルートUIをナビゲーション前にブラウザに読み込みます。
+> 
+> リンクにprefetch=\{true\}を追加すると、URL依存のコンテンツもクリック前に解決します。不足分はサーバーから読み込み、Suspense境界にストリーミングで挿入されます。
+> 
+> フィルター部分ではuseTransitionを使ってカタログをフェードさせつつサーバー更新を行い、useOptimisticで次のフィルター値を即座に適用しています。
+> 
+> 再構築により初回読み込みも大幅改善。First Contentful Paintが44%高速化、Largest Contentful Paintが33%高速化されました。
+> 
+> ソースコードと詳細は以下から↓
+
+**解説:**
+
+Vercelの公式スタッフが、Next.js 16.3で導入された新機能「Instant Navigations」を活用して古いデモアプリを全面的に作り直した事例を紹介しています。この機能は、サーバーサイドでレンダリングされるページでも、ユーザーがリンクをクリックした瞬間に即座にUIを更新できるようにするもので、ネットワークが遅い環境でもスムーズな体験を提供します。
+
+具体的な実装として、next.config.jsでのcacheComponentsとpartialPrefetchingの有効化、Linkコンポーネントへのprefetch指定、useTransitionとuseOptimisticフックの組み合わせを説明。結果として、ページ遷移の体感速度が大幅に向上しただけでなく、初回ロード時のパフォーマンス指標（FCP/LCP）も30-40%改善したと報告しています。
+
+Next.jsのApp Routerを活用した最新の最適化手法として、技術者にとって非常に実践的なTipsとなっており、キャッシュ戦略やストリーミング、楽観的更新の組み合わせが分かりやすく解説されています。新機能の具体的な活用方法と成果がセットで示されている優先度の高い投稿です。
